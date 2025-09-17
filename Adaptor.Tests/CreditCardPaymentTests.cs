@@ -1,85 +1,68 @@
+using System;
 using Adaptor.Interfaces;
-using Adaptor.Logging;
 using Adaptor.PaymentProcessors;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Adaptor.ExternalServices;
+using Adaptor.PaymentProcessors;
 
 namespace Adaptor.Tests
 {
-    /// <summary>
-    /// Test class for the CreditCardPayment class
-    /// </summary>
-    [TestClass]
+    [TestFixture]
     public class CreditCardPaymentTests
     {
-        private readonly TestLogger _logger = new TestLogger();
+        private CreditCardPayment _creditCardPayment;
         
-        /// <summary>
-        /// Test class for logging that captures log messages
-        /// </summary>
-        private class TestLogger : ILogger
+        [SetUp]
+        public void Setup()
         {
-            public string LastLogMessage { get; private set; } = string.Empty;
-            
-            public void LogInfo(string message) => LastLogMessage = message;
-            public void LogWarning(string message) => LastLogMessage = message;
-            public void LogError(string message) => LastLogMessage = message;
-            public void LogSuccess(string message) => LastLogMessage = message;
+            _creditCardPayment = new CreditCardPayment();
         }
         
-        /// <summary>
-        /// Test that the credit card processor processes payments correctly
-        /// </summary>
-        [TestMethod]
-        public void ProcessPayment_ReturnsTrue_AndLogsSuccess()
+        [Test]
+        public void ProcessPayment_StandardAmount_ReturnsTrue()
         {
-            // Arrange
-            var processor = new CreditCardPayment(_logger);
-            string customerId = "CUST001";
-            decimal amount = 123.45m;
-            
-            // Act
-            bool result = processor.ProcessPayment(customerId, amount);
-            
-            // Assert
-            Assert.IsTrue(result, "Payment processing should return true");
-            Assert.IsTrue(_logger.LastLogMessage.Contains("successful"), "Success message should be logged");
+            var result = _creditCardPayment.ProcessPayment("CUST123", 50.00m);
+            Assert.That(result, Is.True);
         }
         
-        /// <summary>
-        /// Test that the credit card processor processes refunds correctly
-        /// </summary>
-        [TestMethod]
-        public void RefundPayment_ReturnsTrue_AndLogsSuccess()
+        [Test]
+        public void RefundPayment_ValidTransaction_ReturnsTrue()
         {
-            // Arrange
-            var processor = new CreditCardPayment(_logger);
-            string transactionId = "TX12345";
-            decimal amount = 45.67m;
-            
-            // Act
-            bool result = processor.RefundPayment(transactionId, amount);
-            
-            // Assert
-            Assert.IsTrue(result, "Refund processing should return true");
-            Assert.IsTrue(_logger.LastLogMessage.Contains("successful"), "Success message should be logged");
+            var result = _creditCardPayment.RefundPayment("TX123456", 25.50m);
+            Assert.That(result, Is.True);
         }
         
-        /// <summary>
-        /// Test that the credit card processor returns the correct status
-        /// </summary>
-        [TestMethod]
-        public void GetPaymentStatus_ReturnsFormattedStatus()
+        [Test]
+        public void GetPaymentStatus_ReturnsExpectedFormat()
         {
-            // Arrange
-            var processor = new CreditCardPayment(_logger);
-            string transactionId = "TX12345";
+            var status = _creditCardPayment.GetPaymentStatus("TX9876");
             
-            // Act
-            string status = processor.GetPaymentStatus(transactionId);
-            
-            // Assert
-            Assert.IsTrue(status.Contains(transactionId), "Status should contain the transaction ID");
-            Assert.IsTrue(status.Contains("status"), "Status should mention status");
+            Assert.That(status, Does.Contain("status"));
+            Assert.That(status, Does.Contain("TX9876"));
+        }
+        
+        [Test]
+        public void ProcessPayment_ZeroAmount_ReturnsTrue()
+        {
+            var result = _creditCardPayment.ProcessPayment("CUST999", 0m);
+            Assert.That(result, Is.True);
+        }
+        
+        [Test]
+        public void ProcessAndGetStatus_ReturnsNonEmptyStatus()
+        {
+            _creditCardPayment.ProcessPayment("CUST456", 50.00m);
+            var status = _creditCardPayment.GetPaymentStatus("TX12345");
+            Assert.That(status, Is.Not.Empty);
+        }
+        
+        [Test]
+        public void ProcessPayment_VariousAmounts_AllSucceed()
+        {
+            Assert.Multiple(() => {
+                Assert.That(_creditCardPayment.ProcessPayment("CUST1", 10.00m), Is.True);
+                Assert.That(_creditCardPayment.ProcessPayment("CUST2", 99.99m), Is.True);
+                Assert.That(_creditCardPayment.ProcessPayment("CUST3", 1000.00m), Is.True);
+            });
         }
     }
 }
