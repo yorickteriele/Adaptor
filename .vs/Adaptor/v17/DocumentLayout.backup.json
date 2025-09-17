@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\kolsm\\source\\repos\\yorickteriele\\Adaptor\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8108E556-DB18-4486-A4BF-DA4EE84CC87C}|Adaptor\\Adaptor.csproj|c:\\users\\kolsm\\source\\repos\\yorickteriele\\adaptor\\adaptor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8108E556-DB18-4486-A4BF-DA4EE84CC87C}|Adaptor\\Adaptor.csproj|solutionrelative:adaptor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 143,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,6 +27,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:1981043009:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\kolsm\\source\\repos\\yorickteriele\\Adaptor\\Adaptor\\Program.cs",
+              "RelativeDocumentMoniker": "Adaptor\\Program.cs",
+              "ToolTip": "C:\\Users\\kolsm\\source\\repos\\yorickteriele\\Adaptor\\Adaptor\\Program.cs",
+              "RelativeToolTip": "Adaptor\\Program.cs",
+              "ViewState": "AgIAAKoAAAAAAAAAAAAAwAAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-17T10:37:00.931Z",
+              "EditorCaption": ""
             }
           ]
         },
@@ -36,7 +54,7 @@
           ]
         },
         {
-          "DockedWidth": 217,
+          "DockedWidth": 189,
           "SelectedChildIndex": -1,
           "Children": [
             {

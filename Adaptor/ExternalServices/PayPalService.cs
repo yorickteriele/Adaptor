@@ -11,12 +11,6 @@ namespace Adaptor.ExternalServices
     {
         private readonly Dictionary<string, PayPalTransactionInfo> _transactions = new();
 
-        /// <summary>
-        /// Authorize a payment with the PayPal API
-        /// </summary>
-        /// <param name="emailAddress">The PayPal email address of the payer</param>
-        /// <param name="paymentAmount">The amount to be paid</param>
-        /// <returns>An authorization token for the payment</returns>
         public virtual string AuthorizePayment(string emailAddress, double paymentAmount)
         {
             if (string.IsNullOrEmpty(emailAddress))
@@ -29,12 +23,10 @@ namespace Adaptor.ExternalServices
                 throw new ArgumentException("Payment amount must be positive", nameof(paymentAmount));
             }
 
-            // Simulate PayPal API call
             Console.WriteLine($"PayPal API: Authorizing payment for {emailAddress}");
             
             var authToken = Guid.NewGuid().ToString();
             
-            // Store transaction info
             _transactions[authToken] = new PayPalTransactionInfo
             {
                 Email = emailAddress,
@@ -46,11 +38,6 @@ namespace Adaptor.ExternalServices
             return authToken;
         }
 
-        /// <summary>
-        /// Complete a previously authorized payment
-        /// </summary>
-        /// <param name="authorizationToken">The authorization token from AuthorizePayment</param>
-        /// <returns>True if the payment was completed successfully, false otherwise</returns>
         public virtual bool CompletePayment(string authorizationToken)
         {
             if (string.IsNullOrEmpty(authorizationToken))
@@ -65,7 +52,6 @@ namespace Adaptor.ExternalServices
 
             Console.WriteLine($"PayPal API: Completing payment with token {authorizationToken}");
             
-            // Update transaction status
             var transaction = _transactions[authorizationToken];
             transaction.Status = "COMPLETED";
             transaction.Completed = DateTime.Now;
@@ -73,13 +59,6 @@ namespace Adaptor.ExternalServices
             return true;
         }
 
-        /// <summary>
-        /// Request a refund for a previous payment
-        /// </summary>
-        /// <param name="emailAddress">The PayPal email address of the payer</param>
-        /// <param name="paymentId">The payment ID or authorization token</param>
-        /// <param name="amount">The amount to refund</param>
-        /// <returns>A refund ID</returns>
         public virtual string RequestRefund(string emailAddress, string paymentId, double amount)
         {
             if (string.IsNullOrEmpty(emailAddress))
@@ -104,21 +83,14 @@ namespace Adaptor.ExternalServices
 
             Console.WriteLine($"PayPal API: Requesting refund to {emailAddress} for payment {paymentId}");
             
-            // Update transaction status
             var transaction = _transactions[paymentId];
             transaction.Status = "REFUNDED";
             transaction.Refunded = DateTime.Now;
             transaction.RefundAmount = amount;
             
-            // Generate a refund ID
             return "REF" + Guid.NewGuid().ToString().Substring(0, 8);
         }
 
-        /// <summary>
-        /// Check the status of a transaction
-        /// </summary>
-        /// <param name="paymentId">The payment ID or authorization token</param>
-        /// <returns>A dictionary with transaction details</returns>
         public virtual Dictionary<string, string> CheckTransactionStatus(string paymentId)
         {
             if (string.IsNullOrEmpty(paymentId))
@@ -152,9 +124,6 @@ namespace Adaptor.ExternalServices
         }
     }
 
-    /// <summary>
-    /// Class to store PayPal transaction information
-    /// </summary>
     internal class PayPalTransactionInfo
     {
         public string Email { get; set; } = string.Empty;
