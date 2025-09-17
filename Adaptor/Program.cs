@@ -16,9 +16,6 @@ namespace Adaptor
         private readonly PaymentProcessorFactory _paymentFactory;
         private readonly ShoppingCart _cart;
 
-        /// <summary>
-        /// Constructor for the Program class
-        /// </summary>
         public Program()
         {
             _logger = new ConsoleLogger();
@@ -26,9 +23,6 @@ namespace Adaptor
             _cart = new ShoppingCart(_logger);
         }
 
-        /// <summary>
-        /// Main entry point for the application
-        /// </summary>
         static void Main(string[] args)
         {
             try
@@ -45,9 +39,6 @@ namespace Adaptor
             }
         }
 
-        /// <summary>
-        /// Run the main application logic
-        /// </summary>
         public void Run()
         {
             DisplayWelcomeScreen();
@@ -55,9 +46,6 @@ namespace Adaptor
             RunMainMenu();
         }
 
-        /// <summary>
-        /// Display the welcome screen
-        /// </summary>
         private void DisplayWelcomeScreen()
         {
             Console.Clear();
@@ -71,9 +59,6 @@ namespace Adaptor
             Console.ReadKey();
         }
 
-        /// <summary>
-        /// Initialize the shopping cart with sample items
-        /// </summary>
         private void InitializeShoppingCart()
         {
             _cart.AddItem("Smartphone", 599.99m);
@@ -81,9 +66,6 @@ namespace Adaptor
             _cart.AddItem("Screenprotector", 9.99m);
         }
 
-        /// <summary>
-        /// Run the main menu loop
-        /// </summary>
         private void RunMainMenu()
         {
             bool exitRequested = false;
@@ -98,9 +80,6 @@ namespace Adaptor
             _logger.LogSuccess("\nBedankt voor het winkelen! Tot ziens!");
         }
 
-        /// <summary>
-        /// Display the main menu options
-        /// </summary>
         private void DisplayMainMenu()
         {
             Console.Clear();
@@ -114,11 +93,6 @@ namespace Adaptor
             _logger.LogInfo("\nMaak uw keuze (1-6): ");
         }
 
-        /// <summary>
-        /// Process the user's menu choice
-        /// </summary>
-        /// <param name="choice">The user's choice</param>
-        /// <returns>True if the program should exit, false otherwise</returns>
         private bool ProcessMenuChoice(string choice)
         {
             string customerId = "CUST001";
@@ -131,21 +105,18 @@ namespace Adaptor
                     return false;
 
                 case "2":
-                    // Use credit card payment
                     var ccProcessor = _paymentFactory.CreatePaymentProcessor(PaymentProcessorFactory.PaymentMethod.CreditCard);
                     _cart.Checkout(ccProcessor, customerId);
                     PauseAndContinue();
                     return false;
 
                 case "3":
-                    // Use PayPal via the adapter
                     var paypalProcessor = _paymentFactory.CreatePaymentProcessor(PaymentProcessorFactory.PaymentMethod.PayPal);
                     _cart.Checkout(paypalProcessor, customerId);
                     PauseAndContinue();
                     return false;
 
                 case "4":
-                    // Demo a refund process
                     DemoRefundProcess();
                     PauseAndContinue();
                     return false;
@@ -165,9 +136,6 @@ namespace Adaptor
             }
         }
 
-        /// <summary>
-        /// Show an explanation of the Adapter pattern
-        /// </summary>
         private void ShowPatternExplanation()
         {
             Console.Clear();
@@ -188,9 +156,6 @@ namespace Adaptor
             _logger.LogInfo("3. Duidelijke scheiding van verantwoordelijkheden");
         }
 
-        /// <summary>
-        /// Demo the refund process for both payment methods
-        /// </summary>
         private void DemoRefundProcess()
         {
             Console.Clear();
@@ -201,7 +166,6 @@ namespace Adaptor
 
             string choice = Console.ReadLine() ?? string.Empty;
 
-            // Demo transaction IDs
             string ccTransactionId = "CC" + Guid.NewGuid().ToString().Substring(0, 8);
             string paypalTransactionId = "TXN" + Guid.NewGuid().ToString().Substring(0, 8);
 
@@ -209,7 +173,6 @@ namespace Adaptor
             {
                 case "1":
                     var ccProcessor = new CreditCardPayment(_logger);
-                    // First process a payment to have a valid transaction (in a real scenario)
                     _logger.LogInfo("\nFirst making a payment to demonstrate a refund:\n");
                     ccProcessor.ProcessPayment("CUST001", 39.95m);
                     
@@ -218,10 +181,8 @@ namespace Adaptor
                     break;
 
                 case "2":
-                    // For demo purposes, create a new PayPalAdapter
                     var paypalAdapter = new PayPalAdapter(logger: _logger);
 
-                    // First process a payment
                     _logger.LogInfo("\nFirst making a payment to demonstrate a refund:\n");
                     paypalAdapter.ProcessPayment("CUST002", 149.95m);
 
@@ -235,9 +196,6 @@ namespace Adaptor
             }
         }
 
-        /// <summary>
-        /// Pause and wait for the user to continue
-        /// </summary>
         private void PauseAndContinue()
         {
             _logger.LogInfo("\nDruk op een toets om terug te keren naar het hoofdmenu...");
