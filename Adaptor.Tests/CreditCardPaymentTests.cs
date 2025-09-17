@@ -11,17 +11,12 @@ namespace Adaptor.Tests
     {
         private CreditCardPayment _creditCardPayment;
         
-<<<<<<< HEAD
         [SetUp]
         public void Setup()
-=======
-        private class TestLogger : ILogger
->>>>>>> origin/master
         {
             _creditCardPayment = new CreditCardPayment();
         }
         
-<<<<<<< HEAD
         [Test]
         public void ProcessPayment_StandardAmount_ReturnsTrue()
         {
@@ -68,45 +63,6 @@ namespace Adaptor.Tests
                 Assert.That(_creditCardPayment.ProcessPayment("CUST2", 99.99m), Is.True);
                 Assert.That(_creditCardPayment.ProcessPayment("CUST3", 1000.00m), Is.True);
             });
-=======
-  
-        [TestMethod]
-        public void ProcessPayment_ReturnsTrue_AndLogsSuccess()
-        {
-            var processor = new CreditCardPayment(_logger);
-            string customerId = "CUST001";
-            decimal amount = 123.45m;
-            
-            bool result = processor.ProcessPayment(customerId, amount);
-            
-            Assert.IsTrue(result, "Payment processing should return true");
-            Assert.IsTrue(_logger.LastLogMessage.Contains("successful"), "Success message should be logged");
-        }
-        
-        [TestMethod]
-        public void RefundPayment_ReturnsTrue_AndLogsSuccess()
-        {
-            var processor = new CreditCardPayment(_logger);
-            string transactionId = "TX12345";
-            decimal amount = 45.67m;
-            
-            bool result = processor.RefundPayment(transactionId, amount);
-            
-            Assert.IsTrue(result, "Refund processing should return true");
-            Assert.IsTrue(_logger.LastLogMessage.Contains("successful"), "Success message should be logged");
-        }
-        
-        [TestMethod]
-        public void GetPaymentStatus_ReturnsFormattedStatus()
-        {
-            var processor = new CreditCardPayment(_logger);
-            string transactionId = "TX12345";
-            
-            string status = processor.GetPaymentStatus(transactionId);
-            
-            Assert.IsTrue(status.Contains(transactionId), "Status should contain the transaction ID");
-            Assert.IsTrue(status.Contains("status"), "Status should mention status");
->>>>>>> origin/master
         }
     }
 }
