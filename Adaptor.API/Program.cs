@@ -12,7 +12,6 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<CreditCardPayment>();
 builder.Services.AddScoped<PayPalService>();
-builder.Services.AddScoped<PayPalAdapter>();
 
 var app = builder.Build();
 

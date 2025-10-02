@@ -33,7 +33,7 @@ namespace Adaptor.API.Controllers
                 IPaymentProcessor processor = request.PaymentMethod.ToLower() switch
                 {
                     "creditcard" => _serviceProvider.GetRequiredService<CreditCardPayment>(),
-                    "paypal" => _serviceProvider.GetRequiredService<PayPalAdapter>(),
+                    "paypal" => _serviceProvider.GetRequiredService<CreditCardPayment>(),
                     _ => throw new ArgumentException("Unsupported payment method")
                 };
 
