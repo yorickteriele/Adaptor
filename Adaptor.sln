@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adaptor.API", "Adaptor.API\Adaptor.API.csproj", "{CD3D04EB-D9FD-4F7A-B02A-2C8249D59C3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adaptor.Tests", "Adaptor.Tests\Adaptor.Tests.csproj", "{95812558-1F3A-49C0-8CAC-B94753DAE3ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,18 @@ Global
 		{CD3D04EB-D9FD-4F7A-B02A-2C8249D59C3A}.Release|x64.Build.0 = Release|Any CPU
 		{CD3D04EB-D9FD-4F7A-B02A-2C8249D59C3A}.Release|x86.ActiveCfg = Release|Any CPU
 		{CD3D04EB-D9FD-4F7A-B02A-2C8249D59C3A}.Release|x86.Build.0 = Release|Any CPU
+		{95812558-1F3A-49C0-8CAC-B94753DAE3ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95812558-1F3A-49C0-8CAC-B94753DAE3ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95812558-1F3A-49C0-8CAC-B94753DAE3ED}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{95812558-1F3A-49C0-8CAC-B94753DAE3ED}.Debug|x64.Build.0 = Debug|Any CPU
+		{95812558-1F3A-49C0-8CAC-B94753DAE3ED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{95812558-1F3A-49C0-8CAC-B94753DAE3ED}.Debug|x86.Build.0 = Debug|Any CPU
+		{95812558-1F3A-49C0-8CAC-B94753DAE3ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95812558-1F3A-49C0-8CAC-B94753DAE3ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95812558-1F3A-49C0-8CAC-B94753DAE3ED}.Release|x64.ActiveCfg = Release|Any CPU
+		{95812558-1F3A-49C0-8CAC-B94753DAE3ED}.Release|x64.Build.0 = Release|Any CPU
+		{95812558-1F3A-49C0-8CAC-B94753DAE3ED}.Release|x86.ActiveCfg = Release|Any CPU
+		{95812558-1F3A-49C0-8CAC-B94753DAE3ED}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
